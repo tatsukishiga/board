@@ -42,4 +42,8 @@ class UsersController < ApplicationController
     flash[:notice] = "ログアウトしました"
     redirect_to("/login")
   end
+
+  def show
+    @user = User.find_by(id: params[:id])
+  end
 end
