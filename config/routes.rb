@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   post 'logout' => 'users#logout'
   get 'users/:id' => 'users#show'
   get 'users/:id/edit' => 'users#edit'
+  post 'users/:id/update' => 'users#update'
 
 end
