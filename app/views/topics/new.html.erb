@@ -1,0 +1,19 @@
+<div class="main topic-new">
+  <div class="container">
+    <h1 class="form-heading">トピック作成</h1>
+    <%= form_tag("/topics/create") do %>
+      <div class="form">
+        <div class="form-body">
+          <% @topic.errors.full_messages.each do |message| %>
+            <div class="form-error">
+              <%= message %>
+            </div>
+          <% end %>
+          <input type="text" name="title">
+          <textarea name="content"><%= @topic.content %></textarea>
+          <input type="submit" value="作成">
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
