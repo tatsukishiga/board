@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Board3</title>
+    <title>Board</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,19 @@
   </head>
 
   <body>
+    <header>
+      <div class="header-logo">
+        <% if @current_user %>
+          <%= link_to("Board", "/topics/index") %>
+        <% else %>
+        <% end %>
+      </div>
+      <ul class="header-menus">
+        <% if @current_user %>
+        <% else %>
+        <% end %>
+      </ul>
+    </header>
     <%= yield %>
   </body>
 </html>
