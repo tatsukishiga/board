@@ -19,6 +19,9 @@
       </div>
       <ul class="header-menus">
         <% if @current_user %>
+          <li>
+            <%= link_to("トピック作成", "/topics/new") %>
+          </li>
         <% else %>
         <% end %>
       </ul>
