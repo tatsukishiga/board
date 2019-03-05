@@ -1,0 +1,23 @@
+<%= form_tag("/topics/search_result") do %>
+<textarea name="title"></textarea>
+<input type="submit" value="検索">
+<% end %>
+
+<% @topics.each do |topic| %>
+  <%= "#{topic.title}を検索しました。" %>
+<% end %>
+
+<h1>検索結果</h1>
+
+<% @topics.each do |topic| %>
+  <div class="topics-index-item">
+    <div class="topic-left">
+      <%= link_to(topic.title, "/topics/#{topic.id}") %>
+    </div>
+    <div class="topic-right">
+      <div class="topic-user-name">
+        <%= link_to(topic.user.name, "/users/#{topic.user.id}") %>
+      </div>
+    </div>
+  </div>
+<% end %>

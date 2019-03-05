@@ -30,4 +30,9 @@ class TopicsController < ApplicationController
   def edit
     @topic = Topic.find_by(id: params[:id])
   end
+
+  def search_result
+    @topics = Topic.where(title: params[:title])
+    # binding.pry
+  end
 end

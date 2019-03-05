@@ -1,5 +1,11 @@
 <div class="main topics-index">
   <div class="container">
+
+    <%= form_tag("/topics/search_result") do %>
+      <textarea name="title"></textarea>
+      <input type="submit" value="検索">
+    <% end %>
+
     <% @topics.each do |topic| %>
       <div class="topics-index-item">
         <div class="topic-left">
