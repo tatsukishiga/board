@@ -19,5 +19,11 @@ class TopicsController < ApplicationController
     else
       render("topics/new")
     end
-  end  
+  end
+
+  def show
+    @topic = Topic.find_by(id: params[:id])
+    @user = @topic.user
+    @comments = Comment.all
+  end
 end
