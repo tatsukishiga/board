@@ -1,0 +1,19 @@
+<div class="main topic-new">
+  <div class="container">
+    <h1 class="form-heading">トピック編集</h1>
+    <%= form_tag("/topics/#{@topic.id}/update", {multipart: true}) do %>
+      <div class="form">
+        <div class="form-body">
+          <% @topic.errors.full_messages.each do |message| %>
+            <div class="form-error">
+              <%= message %>
+            </div>
+          <% end %>
+          <input type="text" name="title" value="<%= @topic.title %>">
+          <textarea name="content"><%= @topic.content %></textarea>
+          <input type="submit" value="変更">
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

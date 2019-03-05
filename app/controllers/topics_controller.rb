@@ -26,4 +26,8 @@ class TopicsController < ApplicationController
     @user = @topic.user
     @comments = Comment.all
   end
+
+  def edit
+    @topic = Topic.find_by(id: params[:id])
+  end
 end
