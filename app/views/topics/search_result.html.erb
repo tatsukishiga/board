@@ -7,17 +7,27 @@
   <%= "#{topic.title}を検索しました。" %>
 <% end %>
 
-<h1>検索結果</h1>
-
-<% @topics.each do |topic| %>
-  <div class="topics-index-item">
-    <div class="topic-left">
-      <%= link_to(topic.title, "/topics/#{topic.id}") %>
-    </div>
-    <div class="topic-right">
-      <div class="topic-user-name">
-        <%= link_to(topic.user.name, "/users/#{topic.user.id}") %>
+<% if @topics.count == 0 %>
+  <h3>懸命に探してみましたが、見つかりませんでした。</h3>
+  <p>検索のヒント</p>
+  <ul>
+    <li>キーワードを短くしてみたり、数を減らしてみてください。</li>
+    <li>キーワードの誤字、脱字がないか確認してください。</li>
+    <li>別のキーワードを試してみてください。</li>
+    <li>もっと一般的なキーワードに変えてみてください。</li>
+  </ul>
+<% else %>
+  <h1>検索結果</h1>
+  <% @topics.each do |topic| %>
+    <div class="topics-index-item">
+      <div class="topic-left">
+        <%= link_to(topic.title, "/topics/#{topic.id}") %>
+      </div>
+      <div class="topic-right">
+        <div class="topic-user-name">
+          <%= link_to(topic.user.name, "/users/#{topic.user.id}") %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
