@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   def index
-    @topics = Topic.all.order(created_at: :desc)
+    @topics = Topic.page(params[:page])
   end
 
   def new
