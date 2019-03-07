@@ -15,6 +15,7 @@
             <input name="image" type="file">
             <p>メールアドレス</p>
             <input name="email" value="<%= @user.email %>">
+            <p>プロフィール</p>
             <textarea name="profile"><%= @user.profile %></textarea>
             <input type="submit" value="更新">
           <% end %>
