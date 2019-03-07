@@ -1,27 +1,30 @@
 <div class="main topics-show">
-  <div class="container"
-  
+  <div class="container">
     <h1 class="form-heading"><%= @topic.title %></h1>
     <% if @topic.user_id == @current_user.id %>
       <%= link_to("編集", "/topics/#{@topic.id}/edit") %>
     <% end %>
-
     <% @topic.comments.each do |comment| %>
-      <div class="topic-posts-item">
-        <div class="post-left">
+      <div class="topic-comments-item">
+        <div class="comment-left">
           <img src="<%= "/profile_images/#{@user.profile_image}" %>">
         </div>
-        <div class="post-right">
-          <div class="post-user-name">
+        <div class="comment-right">
+          <div class="comment-user-name">
             <%= link_to(comment.user.name, "/users/#{comment.user_id}") %>
           </div>
-          <div class="post-user-content">
-            <%= link_to(comment.content, "/posts/#{comment.user_id}") %>
+          <div class="comment-content">
+            <%= comment.content %>
           </div>
+          <div class="comment-time">
+            <%= comment.created_at %>
+          </div>
+          <% if comment.user_id == @current_user.id %>
+            <%= link_to("削除", "/comments/#{comment.id}/destroy", {method: "post"}) %>
+          <% end %>
         </div>
       </div>
     <% end %>
-
     <div class="comment-new">
       <%= form_tag("/comments/#{@topic.id}/create") do %>
       <div class="form">
@@ -34,6 +37,5 @@
       </div>
       <% end %>
     </div>
-
   </div>
 </div>
