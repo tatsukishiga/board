@@ -12,18 +12,12 @@
   <body>
     <header>
       <div class="header-logo">
-        <% if @current_user %>
-        <% else %>
           <%= link_to("Board", "/") %>
-        <% end %>
       </div>
       <ul class="header-menus">
-        <% if @current_user %>
-        <% else %>
           <li>
             <%= link_to("Boardについて", "/about") %>
           </li>
-        <% end %>
       </ul>
     </header>
     <%= yield %>
