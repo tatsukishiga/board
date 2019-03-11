@@ -14,7 +14,7 @@ class TopicsController < ApplicationController
     )
     if @topic.save
       flash[:notice] = "トピックを作成しました"
-      redirect_to("/topics/index")
+      redirect_to("/topics")
     else
       render("topics/new")
     end
@@ -32,6 +32,5 @@ class TopicsController < ApplicationController
 
   def search_result
     @topics = Topic.where(title: params[:title])
-    # binding.pry
   end
 end

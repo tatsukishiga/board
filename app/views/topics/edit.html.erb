@@ -1,7 +1,7 @@
 <div class="main topic-new">
   <div class="container">
     <h1 class="form-heading">トピック編集</h1>
-    <%= form_tag("/topics/#{@topic.id}/update", {multipart: true}) do %>
+    <%= form_tag("/topics/#{@topic.id}", {method: "patch"}) do %>
       <div class="form">
         <div class="form-body">
           <% @topic.errors.full_messages.each do |message| %>
