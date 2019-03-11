@@ -8,10 +8,9 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = Topic.new(
+    @topic = @current_user.topic.new(
       title: params[:title],
       content: params[:content],
-      user_id: @current_user.id
     )
     if @topic.save
       flash[:notice] = "トピックを作成しました"
