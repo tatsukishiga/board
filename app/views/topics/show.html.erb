@@ -1,13 +1,13 @@
 <div class="main topics-show">
   <div class="container">
-    <h1 class="form-heading"><%= @topic.title %></h1>
-    <% if @topic.user_id == @current_user.id %>
-      <%= link_to("編集", "/topics/#{@topic.id}/edit") %>
+    <h1 class="form-heading"><%= @topic_user.title %></h1>
+    <% if ensure_correct_user %>
+      <%= link_to("編集", "/topics/#{@topic_user.id}/edit") %>
     <% end %>
-    <% @topic.comments.each do |comment| %>
+    <% @topic_user.comments.each do |comment| %>
       <div class="topic-comments-item">
         <div class="comment-left">
-          <img src="<%= "/profile_images/#{@user.profile_image}" %>">
+          <img src="<%= "/profile_images/#{comment.user.profile_image}" %>">
         </div>
         <div class="comment-right">
           <div class="comment-user-name">
@@ -19,14 +19,14 @@
           <div class="comment-time">
             <%= comment.created_at %>
           </div>
-          <% if comment.user_id == @current_user.id %>
+          <% if comment_user %>
             <%= link_to("削除", "/comments/#{comment.id}/destroy", {method: "post"}) %>
           <% end %>
         </div>
       </div>
     <% end %>
     <div class="comment-new">
-      <%= form_tag("/comments/#{@topic.id}/create") do %>
+      <%= form_tag("/comments/#{@topic_user.id}/create") do %>
       <div class="form">
         <div class="form-body">
           <div class="comment-area">

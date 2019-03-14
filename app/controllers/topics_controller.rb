@@ -1,4 +1,6 @@
 class TopicsController < ApplicationController
+  before_action :authenticate_user
+
   def index
     @topics = Topic.page(params[:page])
   end
@@ -21,14 +23,24 @@ class TopicsController < ApplicationController
   end
 
   def show
-    @topic = Topic.find_by(id: params[:id])
-    @user = @topic.user
+    @topic_user = Topic.find_by(id: params[:id])
     @comments = Comment.all
   end
 
   def edit
     @topic = Topic.find_by(id: params[:id])
   end
+
+  def update
+    @topic = Topic.find_by(id: params[:id])
+    @topic.update(title: params[:title], content: params[:content])
+    if @topic.update(title: params[:title], content: params[:content])
+      flash[:notice] = "トピックの情報を編集しました"
+      redirect_to("/topics/#{@topic.id}")
+    else
+      render("topics/edit")
+    end
+end
 
   def search_result
     @topics = Topic.where(title: params[:title])
