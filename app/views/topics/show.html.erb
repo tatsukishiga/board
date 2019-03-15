@@ -1,8 +1,8 @@
 <div class="main topics-show">
   <div class="container">
     <h1 class="form-heading"><%= @topic_user.title %></h1>
-    <% if ensure_correct_user %>
-      <%= link_to("編集", "/topics/#{@topic_user.id}/edit") %>
+    <% if t_ensure_correct_user %>
+      <%= link_to("編集", edit_topic_path(@topic_user.id)) %>
     <% end %>
     <% @topic_user.comments.each do |comment| %>
       <div class="topic-comments-item">
@@ -11,7 +11,7 @@
         </div>
         <div class="comment-right">
           <div class="comment-user-name">
-            <%= link_to(comment.user.name, "/users/#{comment.user_id}") %>
+            <%= link_to(comment.user.name, user_path(comment.user_id)) %>
           </div>
           <div class="comment-content">
             <%= comment.content %>
@@ -19,19 +19,19 @@
           <div class="comment-time">
             <%= comment.created_at %>
           </div>
-          <% if comment_user %>
-            <%= link_to("削除", "/comments/#{comment.id}/destroy", {method: "post"}) %>
+          <% if comment_user(user_id: comment.user_id) %>
+            <%= link_to("削除", comment_path(comment.id), method: :delete) %>
           <% end %>
         </div>
       </div>
     <% end %>
     <div class="comment-new">
-      <%= form_tag("/comments/#{@topic_user.id}/create") do %>
+      <%= form_with(url: comments_path, local: true) do |form| %>
       <div class="form">
         <div class="form-body">
           <div class="comment-area">
-            <textarea name="content"></textarea>
-            <input type="submit" value="投稿">
+            <%= form.text_field :content %>
+            <%= form.submit "投稿"%>
           </div>
         </div>
       </div>

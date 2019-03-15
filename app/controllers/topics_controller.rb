@@ -10,9 +10,10 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = @current_user.topic.new(
-      title: params[:title],
-      content: params[:content],
+    @topic = Topic.new(
+      title: params[:topic][:title],
+      content: params[:topic][:content],
+      user_id: @current_user.id
     )
     if @topic.save
       flash[:notice] = "トピックを作成しました"
@@ -40,7 +41,7 @@ class TopicsController < ApplicationController
     else
       render("topics/edit")
     end
-end
+  end
 
   def search_result
     @topics = Topic.where(title: params[:title])
