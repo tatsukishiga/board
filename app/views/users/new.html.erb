@@ -8,14 +8,14 @@
             <%= message %>
           </div>
         <% end %>
-        <%= form_tag("/users/create") do %>
-          <p>ユーザー名</p>
-          <input name="name" value="<%= @user.name %>">
-          <p>メールアドレス</p>
-          <input name="email" value="<%= @user.email %>">
-          <p>パスワード</p>
-          <input type="password" name="password" value="<%= @user.password %>">
-          <input type="submit" value="新規登録">
+        <%= form_with(model: @user, local: true) do |form| %>
+          <p><%= form.label :name, "ユーザー名" %></p>
+            <%= form.text_field :name %>
+          <p><%= form.label :email, "メールアドレス" %></p>
+            <%= form.text_field :email %>
+          <p><%= form.label :password, "パスワード" %></p>
+            <%= form.password_field :password %>
+            <%= form.submit "新規登録" %>
         <% end %>
       </div>
     </div>

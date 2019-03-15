@@ -8,18 +8,18 @@
             <%= message %>
           </div>
         <% end %>
-          <%= form_tag("/users/#{@user.id}/update", {multipart: true}) do %>
-            <p>ユーザー名</p>
-            <input name="name" value="<%= @user.name %>">
-            <p>画像</p>
-            <input name="image" type="file">
-            <p>メールアドレス</p>
-            <input name="email" value="<%= @user.email %>">
-            <p>プロフィール</p>
-            <textarea name="profile"><%= @user.profile %></textarea>
-            <input type="submit" value="更新">
-          <% end %>
-          <%= link_to("アカウント削除", "/users/#{@user.id}/destroy", {method: "post"}) %>
+        <%= form_with(model: @user, local: true) do |form| %>
+          <p><%= form.label :name, "ユーザー名" %></p>
+            <%= form.text_field :name %>
+          <p><%= form.label :image, "画像" %></p>
+            <%= form.file_field :image %>
+          <p><%= form.label :email, "メールアドレス" %></p>
+            <%= form.text_field :email %>
+          <p><%= form.label :profile, "プロフィール" %></p>
+            <%= form.text_field :profile %>
+            <%= form.submit "更新"%>
+        <% end %>
+        <%= link_to("アカウント削除", user_path(@user.id), :method => :delete) %>
       </div>
     </div>
   </div>

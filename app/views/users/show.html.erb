@@ -3,22 +3,21 @@
     <div class="user">
       <img src="<%= "/profile_images/#{@user.profile_image}" %>">
       <h2><%= @user.name %></h2>
-      <textarea name="profile"><%= @user.profile %></textarea>
-      <% if @user.id == @current_user.id %>
-        <%= link_to("プロフィール編集", "/users/#{@user.id}/edit") %>
+      <div class="profile"><%= @user.profile %></div>
+      <% if u_ensure_correct_user %>
+        <%= link_to("プロフィール編集", edit_user_path ) %>
       <% end %>
     </div>
-    <div class="user-comments">
-      <% @user.comments.each do |comment| %>
-            <div class="user-comments-title">
-              <%= link_to(comment.topic.title, "/topics/#{comment.topic_id}") %>
-            </div>
-            <p><%= comment.content %></p>
-            <div class="comment-time">
-              <%= comment.created_at %>
-            </div>
+    <% @user.comments.each do |comment| %>
+      <div class="user-comments">
+        <div class="user-comments-title">
+          <%= link_to(comment.topic.title, topics_path(comment.topic_id)) %>
         </div>
-      <% end %>
-    </div>
+        <p><%= comment.content %></p>
+        <div class="comment-time">
+          <%= comment.created_at %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
