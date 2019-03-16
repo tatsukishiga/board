@@ -34,8 +34,8 @@ class TopicsController < ApplicationController
 
   def update
     @topic = Topic.find_by(id: params[:id])
-    @topic.update(title: params[:title], content: params[:content])
-    if @topic.update(title: params[:title], content: params[:content])
+    @topic.update(title: params[:topic][:title], content: params[:topic][:content])
+    if @topic.update(title: params[:topic][:title], content: params[:topic][:content])
       flash[:notice] = "トピックの情報を編集しました"
       redirect_to("/topics/#{@topic.id}")
     else
