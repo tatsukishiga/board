@@ -18,9 +18,9 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       flash[:notice] = "ユーザー登録が完了しました"
-      redirect_to("/users/#{@user.id}")
+      redirect_to(user_path(@user.id))
     else
-      render("users/new")
+      render("new")
     end
   end
 
@@ -32,19 +32,19 @@ class UsersController < ApplicationController
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました"
-      redirect_to("/topics")
+      redirect_to(topics_path)
     else
       @error_message = "メールアドレスまたはパスワードが間違っています"
       @email = params[:email]
       @password = params[:password]
-      render("users/login_form")
+      render("login_form")
     end
   end
 
   def logout
     session[:user_id] = nil
     flash[:notice] = "ログアウトしました"
-    redirect_to("/login")
+    redirect_to(login_path)
   end
 
   def show
@@ -66,9 +66,9 @@ class UsersController < ApplicationController
 
     if @user.update(name: params[:user][:name], email: params[:user][:email], profile: params[:user][:profile])
       flash[:notice] = "ユーザー情報を編集しました"
-      redirect_to("/users/#{@user.id}")
+      redirect_to(user_path(@user.id))
     else
-      render("users/edit")
+      render("edit")
     end
   end
 
@@ -82,7 +82,7 @@ class UsersController < ApplicationController
   def ensure_correct_user
     if @current_user.id != params[:id].to_i
       flash[:notice] = "権限がありません"
-      redirect_to("/topics")
+      redirect_to(topics_path)
     end
   end
 end
