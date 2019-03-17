@@ -19,7 +19,8 @@
           <div class="comment-time">
             <%= comment.created_at %>
           </div>
-          <% if comment_user(user_id: comment.user_id) %>
+          <% if comment_user?(comment: comment) %>
+            <%= link_to("編集", edit_comment_path(comment.id)) %>
             <%= link_to("削除", comment_path(comment.id), method: :delete) %>
           <% end %>
         </div>

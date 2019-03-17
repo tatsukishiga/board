@@ -3,7 +3,7 @@ module TopicsHelper
     @topic_user.user_id == @current_user.id
   end
 
-  def comment_user(user_id: comment.user_id)
-    user_id == @current_user.id
+  def comment_user?(comment: comment)
+    comment.user_id == @current_user.id
   end
 end

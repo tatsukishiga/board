@@ -17,9 +17,9 @@ class TopicsController < ApplicationController
     )
     if @topic.save
       flash[:notice] = "トピックを作成しました"
-      redirect_to("/topics")
+      redirect_to(topics_path)
     else
-      render("topics/new")
+      render("new")
     end
   end
 
@@ -34,12 +34,11 @@ class TopicsController < ApplicationController
 
   def update
     @topic = Topic.find_by(id: params[:id])
-    @topic.update(title: params[:topic][:title], content: params[:topic][:content])
     if @topic.update(title: params[:topic][:title], content: params[:topic][:content])
       flash[:notice] = "トピックの情報を編集しました"
-      redirect_to("/topics/#{@topic.id}")
+      redirect_to(topic_path(@topic.id))
     else
-      render("topics/edit")
+      render("edit")
     end
   end
 
