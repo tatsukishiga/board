@@ -12,6 +12,11 @@
   <body>
     <header>
       <div class="header-logo">
+        <% if @current_user %>
+          <%= link_to("Board", topics_path) %>
+        <% else %>
+          <%= link_to("Board", "/") %>
+        <% end %>
       </div>
       <ul class="header-menus">
         <% if @current_user %>
@@ -23,6 +28,9 @@
           </li>
         <% else %>
           <li>
+            <%= link_to("Boardについて", "/about") %>
+          </li>
+          <li>
             <%= link_to("新規登録", new_user_path) %>
           </li>
           <li>
@@ -31,13 +39,11 @@
         <% end %>
       </ul>
     </header>
-
     <% if flash[:notice] %>
       <div class="flash">
         <%= flash[:notice] %>
       </div>
     <% end %>
-
     <%= yield %>
   </body>
 </html>
