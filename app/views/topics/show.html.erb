@@ -1,0 +1,42 @@
+<div class="main topics-show">
+  <div class="container">
+    <h1 class="form-heading"><%= @topic_user.title %></h1>
+    <% if t_ensure_correct_user %>
+      <%= link_to("編集", edit_topic_path(@topic_user.id)) %>
+    <% end %>
+    <% @topic_user.comments.each do |comment| %>
+      <div class="topic-comments-item">
+        <div class="comment-left">
+          <img src="<%= "/profile_images/#{comment.user.profile_image}" %>">
+        </div>
+        <div class="comment-right">
+          <div class="comment-user-name">
+            <%= link_to(comment.user.name, user_path(comment.user_id)) %>
+          </div>
+          <div class="comment-content">
+            <%= comment.content %>
+          </div>
+          <div class="comment-time">
+            <%= comment.created_at %>
+          </div>
+          <% if comment_user?(comment: comment) %>
+            <%= link_to("編集", edit_comment_path(comment.id)) %>
+            <%= link_to("削除", comment_path(comment.id), method: :delete) %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <div class="comment-new">
+      <%= form_with(url: comments_path, local: true) do |form| %>
+      <div class="form">
+        <div class="form-body">
+          <div class="comment-area">
+            <%= form.text_field :content %>
+            <%= form.submit "投稿"%>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
