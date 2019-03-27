@@ -8,17 +8,15 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @current_user.comments.new(
-      content: params[:content],
+      content: params[:comment][:content],
       topic_id: params[:topic_id]
     )
     if @comment.save
       flash[:notice] = "コメントを投稿しました"
       redirect_back(fallback_location: topics_path)
-      return
     else
-      flash[:notice] = "投稿に失敗しました。投稿が空白または、140字を超えています。"
-      redirect_to(topic_path(@comment.topic_id))
-      return
+      @topic_user = Topic.find_by(id: params[:topic_id])
+      render("topics/show")
     end
   end
 
@@ -44,7 +42,8 @@ class CommentsController < ApplicationController
   end
 
   def ensure_correct_user
-    if @current_user.comments.ids.one? { |id| id == params[:id].to_i }
+    @comment = Comment.find_by(id: params[:id])
+    if @comment.user_id == @current_user.id
       return
     else
       flash[:notice] = "権限がありません"
