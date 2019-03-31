@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     @user.destroy
     flash[:notice] = "アカウントを削除しました"
-    if @current_user.admin_status == true
+    if @current_user.admin?
       redirect_to(admin_path)
     else
       redirect_to("/")
@@ -16,6 +16,8 @@ class UsersController < ApplicationController
     @users = User.page(params[:page])
     @topics = Topic.page(params[:page])
   end
+
+  private
 
   def ensure_correct_admin
     if @current_user.admin_status != true

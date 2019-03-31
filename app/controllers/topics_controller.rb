@@ -4,7 +4,7 @@ class TopicsController < ApplicationController
     @topic = Topic.find_by(id: params[:id])
     @topic.destroy
     flash[:notice] = "トピックを削除しました"
-    if @current_user.admin_status == true
+    if @current_user.admin?
       redirect_to(admin_path)
     else
       redirect_to("/")
