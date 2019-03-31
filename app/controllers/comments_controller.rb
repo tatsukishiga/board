@@ -41,11 +41,11 @@ class CommentsController < ApplicationController
     redirect_back(fallback_location: topics_path)
   end
 
+  private
+
   def ensure_correct_user
     @comment = Comment.find_by(id: params[:id])
     if @comment.user_id == @current_user.id
-      return
-    else
       flash[:notice] = "権限がありません"
       redirect_to(topics_path)
     end
