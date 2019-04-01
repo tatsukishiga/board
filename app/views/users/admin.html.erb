@@ -1,6 +1,6 @@
 <header>
   <ul>
-    <% if @current_user.admin_status == true  %>
+    <% if @current_user.admin?  %>
       <li>
         <%= link_to("管理者ページ", admin_path) %>
       </li>
@@ -15,7 +15,8 @@
       <div class="topics-index-item">
         <div class="topic-left">
           <%= link_to(topic.title, topic_path(topic.id)) %>
-          <%= link_to("トピック削除", topic_path(topic.id), method: :delete) %>
+          <%= link_to("トピック削除", topic_path(topic.id), method: :delete, data:
+          { confirm: "本当にこのトピックを削除してよろしいですか？"}) %>
         </div>
         <div class="topic-right">
           <div class="topic-user-name">
@@ -34,7 +35,8 @@
       <div class="users-index-item">
         <%= link_to(user.name, user_path(user.id)) %>
         <%= user.created_at %>
-        <%= link_to("アカウント削除", user_path(user.id), method: :delete) %>
+        <%= link_to("アカウント削除", user_path(user.id), method: :delete, data:
+        { confirm: "本当にこのアカウントを削除してよろしいですか？"}) %>
       </div>
     <% end %>
     <%= paginate @users %>

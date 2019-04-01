@@ -72,7 +72,7 @@ class UsersController < ApplicationController
       render("edit")
     end
   end
-  
+
   def destroy
     @user = User.find_by(id: params[:id])
     @user.destroy
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
       redirect_to("/")
     end
   end
-  
+
   def admin
     @users = User.page(params[:page])
     @topics = Topic.page(params[:page])
@@ -95,6 +95,8 @@ class UsersController < ApplicationController
     if @current_user.admin_status != true
       flash[:notice] = "権限がありません"
       redirect_to("/")
+    end
+  end
   
   def ensure_correct_user
     if @current_user.id != params[:id].to_i

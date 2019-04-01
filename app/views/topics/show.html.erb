@@ -1,6 +1,7 @@
 <div class="main topics-show">
   <div class="container">
     <h1 class="form-heading"><%= @topic_user.title %></h1>
+    <%= @topic_user.content %>
     <% if t_ensure_correct_user %>
       <%= link_to("編集", edit_topic_path(@topic_user.id)) %>
     <% end %>
@@ -21,21 +22,22 @@
           </div>
           <% if comment_user?(comment: comment) %>
             <%= link_to("編集", edit_comment_path(comment.id)) %>
-            <%= link_to("削除", comment_path(comment.id), method: :delete) %>
+            <%= link_to("削除", comment_path(comment.id), method: :delete, data:
+            { confirm: "本当に#{comment.content}を削除してよろしいですか？"}) %>
           <% end %>
         </div>
       </div>
     <% end %>
-    <div class="comment-new">
-      <%= form_with(url: comments_path, local: true) do |form| %>
-      <div class="form">
-        <div class="form-body">
-          <div class="comment-area">
-            <%= form.text_field :content %>
-            <%= form.submit "投稿"%>
+    <div class="form_group">
+      <%= form_with(model: @comment, url: comments_path, local: true) do |form| %>
+        <% @comment.errors.full_messages.each do |message| %>
+          <div class="form-error">
+            <%= message %>
           </div>
-        </div>
-      </div>
+        <% end %>
+          <%= hidden_field_tag :topic_id, @topic_user.id %>
+          <%= form.text_area :content, class: "form-control", rows: "3"%>
+          <%= form.submit "投稿"%>
       <% end %>
     </div>
   </div>
