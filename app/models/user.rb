@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   has_many :topics
   has_many :comments
-
+  
   def admin?
     admin_status == true
   end
