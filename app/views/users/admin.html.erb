@@ -1,0 +1,42 @@
+<header>
+  <ul>
+    <% if @current_user.admin_status == true  %>
+      <li>
+        <%= link_to("管理者ページ", admin_path) %>
+      </li>
+    <% end %>
+  </ul>
+</header>
+<h1>管理者ページ</h1>
+<div class="main topics-index">
+  <div class="container">
+    <%= page_entries_info @topics %>
+    <% @topics.each do |topic| %>
+      <div class="topics-index-item">
+        <div class="topic-left">
+          <%= link_to(topic.title, topic_path(topic.id)) %>
+          <%= link_to("トピック削除", topic_path(topic.id), method: :delete) %>
+        </div>
+        <div class="topic-right">
+          <div class="topic-user-name">
+            <%= link_to(topic.user.name, user_path(topic.user.id)) %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <%= paginate @topics %>
+  </div>
+</div>
+<div class="main users-index">
+  <div class="container">
+    <%= page_entries_info @users %>
+    <% @users.each do |user| %>
+      <div class="users-index-item">
+        <%= link_to(user.name, user_path(user.id)) %>
+        <%= user.created_at %>
+        <%= link_to("アカウント削除", user_path(user.id), method: :delete) %>
+      </div>
+    <% end %>
+    <%= paginate @users %>
+  </div>
+</div>

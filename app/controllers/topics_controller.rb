@@ -41,6 +41,17 @@ class TopicsController < ApplicationController
       render("edit")
     end
   end
+  
+  def destroy
+    @topic = Topic.find_by(id: params[:id])
+    @topic.destroy
+    flash[:notice] = "トピックを削除しました"
+    if @current_user.admin?
+      redirect_to(admin_path)
+    else
+      redirect_to("/")
+    end
+  end
 
   def search_result
     @topics = Topic.where(title: params[:title])

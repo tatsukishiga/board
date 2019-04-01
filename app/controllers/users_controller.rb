@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user, {only: [:index, :show, :edit, :update]}
   before_action :forbid_login_user, {only: [:new, :create, :login_form, :login]}
   before_action :ensure_correct_user, {only: [:edit, :update]}
+  before_action :ensure_correct_admin, {only: [:admin]}
 
   def new
     @user = User.new
@@ -71,14 +72,30 @@ class UsersController < ApplicationController
       render("edit")
     end
   end
-
+  
   def destroy
     @user = User.find_by(id: params[:id])
     @user.destroy
     flash[:notice] = "アカウントを削除しました"
-    redirect_to("/")
+    if @current_user.admin?
+      redirect_to(admin_path)
+    else
+      redirect_to("/")
+    end
+  end
+  
+  def admin
+    @users = User.page(params[:page])
+    @topics = Topic.page(params[:page])
   end
 
+  private
+
+  def ensure_correct_admin
+    if @current_user.admin_status != true
+      flash[:notice] = "権限がありません"
+      redirect_to("/")
+  
   def ensure_correct_user
     if @current_user.id != params[:id].to_i
       flash[:notice] = "権限がありません"
