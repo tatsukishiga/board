@@ -25,7 +25,7 @@ class TopicsController < ApplicationController
 
   def show
     @topic_user = Topic.find_by(id: params[:id])
-    @comments = Comment.all
+    @comment = Comment.new
   end
 
   def edit
@@ -41,7 +41,7 @@ class TopicsController < ApplicationController
       render("edit")
     end
   end
-  
+
   def destroy
     @topic = Topic.find_by(id: params[:id])
     @topic.destroy

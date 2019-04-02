@@ -1,3 +1,12 @@
+<header>
+  <ul>
+    <% if @current_user.admin?  %>
+      <li>
+        <%= link_to("管理者ページ", admin_path) %>
+      </li>
+    <% end %>
+  </ul>
+</header>
 <div class="main topics-index">
   <div class="container">
     <%= form_with(url: topics_search_result_path, local: true, method: :get) do |form| %>

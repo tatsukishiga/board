@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @current_user.comments.new(
       content: params[:comment][:content],
-      topic_id: params[:topic_id]
+      topic_id: params[:comment][:topic_id]
     )
     if @comment.save
       flash[:notice] = "コメントを投稿しました"
@@ -45,7 +45,7 @@ class CommentsController < ApplicationController
 
   def ensure_correct_user
     @comment = Comment.find_by(id: params[:id])
-    if @comment.user_id == @current_user.id
+    if @comment.user_id != @current_user.id
       flash[:notice] = "権限がありません"
       redirect_to(topics_path)
     end

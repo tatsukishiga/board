@@ -1,3 +1,12 @@
+<header>
+  <ul>
+    <% if @current_user.admin?  %>
+      <li>
+        <%= link_to("管理者ページ", admin_path) %>
+      </li>
+    <% end %>
+  </ul>
+</header>
 <div class="main user-show">
   <div class="container">
     <div class="user">
@@ -11,7 +20,7 @@
     <% @user.comments.each do |comment| %>
       <div class="user-comments">
         <div class="user-comments-title">
-          <%= link_to(comment.topic.title, topics_path(comment.topic_id)) %>
+          <%= link_to(comment.topic.title, topic_path(comment.topic_id)) %>
         </div>
         <p><%= comment.content %></p>
         <div class="comment-time">
