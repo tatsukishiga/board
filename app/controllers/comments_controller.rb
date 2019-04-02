@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @current_user.comments.new(
       content: params[:comment][:content],
-      topic_id: params[:topic_id]
+      topic_id: params[:comment][:topic_id]
     )
     if @comment.save
       flash[:notice] = "コメントを投稿しました"

@@ -35,7 +35,7 @@
             <%= message %>
           </div>
         <% end %>
-          <%= hidden_field_tag :topic_id, @topic_user.id %>
+          <%= form.hidden_field :topic_id, value: @topic_user.id %>
           <%= form.text_area :content, class: "form-control", rows: "3"%>
           <%= form.submit "投稿"%>
       <% end %>
