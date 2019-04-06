@@ -1,31 +1,26 @@
-<header>
-  <ul>
-    <% if @current_user.admin?  %>
-      <li>
-        <%= link_to("管理者ページ", admin_path) %>
-      </li>
-    <% end %>
-  </ul>
-</header>
-<div class="main topics-index">
-  <div class="container">
-    <%= form_with(url: topics_search_result_path, local: true, method: :get) do |form| %>
-      <%= form.text_field :title %>
-      <%= form.submit "検索" %>
-    <% end %>
-    <%= page_entries_info @topics %>
-    <% @topics.each do |topic| %>
-      <div class="topics-index-item">
-        <div class="topic-left">
-          <%= link_to(topic.title, topic_path(topic.id)) %>
-        </div>
-        <div class="topic-right">
-          <div class="topic-user-name">
-            <%= link_to(topic.user.name, user_path(topic.user.id)) %>
+<div class="container">
+  <%= form_with(url: topics_search_result_path, local: true, method: :get) do |form| %>
+    <%= form.text_field :title %>
+    <%= form.submit "検索" %>
+  <% end %>
+  <%= page_entries_info @topics %>
+  <div class="row">
+  <% @topics.each do |topic| %>
+      <div class="col-md-6">
+        <div class="card-group">
+          <div class="card">
+            <div class="card-body">
+              <%= link_to(topic.title, topic_path(topic.id), {class: "card-title"}) %>
+              <p class="card-text"><%= topic.content %></p>
+              <%= link_to("作成者#{topic.user.name}", user_path(topic.user.id)) %>
+            </div>
+            <div class="card-footer text-muted">
+              トピック作成日<%= topic.created_at %>
+            </div>
           </div>
         </div>
       </div>
-    <% end %>
-    <%= paginate @topics %>
+  <% end %>
   </div>
+  <%= paginate @topics %>
 </div>

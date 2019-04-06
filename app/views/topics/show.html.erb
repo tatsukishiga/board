@@ -1,44 +1,37 @@
-<div class="main topics-show">
-  <div class="container">
-    <h1 class="form-heading"><%= @topic_user.title %></h1>
-    <%= @topic_user.content %>
-    <% if t_ensure_correct_user %>
-      <%= link_to("編集", edit_topic_path(@topic_user.id)) %>
-    <% end %>
-    <% @topic_user.comments.each do |comment| %>
-      <div class="topic-comments-item">
-        <div class="comment-left">
-          <img src="<%= "/profile_images/#{comment.user.profile_image}" %>">
-        </div>
-        <div class="comment-right">
-          <div class="comment-user-name">
-            <%= link_to(comment.user.name, user_path(comment.user_id)) %>
-          </div>
-          <div class="comment-content">
-            <%= comment.content %>
-          </div>
-          <div class="comment-time">
-            <%= comment.created_at %>
-          </div>
-          <% if comment_user?(comment: comment) %>
-            <%= link_to("編集", edit_comment_path(comment.id)) %>
-            <%= link_to("削除", comment_path(comment.id), method: :delete, data:
-            { confirm: "本当に#{comment.content}を削除してよろしいですか？"}) %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-    <div class="form_group">
-      <%= form_with(model: @comment, url: comments_path, local: true) do |form| %>
-        <% @comment.errors.full_messages.each do |message| %>
-          <div class="form-error">
-            <%= message %>
-          </div>
-        <% end %>
-          <%= form.hidden_field :topic_id, value: @topic_user.id %>
-          <%= form.text_area :content, class: "form-control", rows: "3"%>
-          <%= form.submit "投稿"%>
+<div class="container">
+  <h1><%= @topic_user.title %></h1>
+      <%= @topic_user.content %><br>
+      <% if t_ensure_correct_user %>
+        <%= link_to("トピック編集", edit_topic_path(@topic_user.id)) %>
       <% end %>
+  <% @topic_user.comments.each do |comment| %>
+  <div class= "row">
+    <div class="col-sm-3">
+      <img src="<%= "/profile_images/#{comment.user.profile_image}" %>" class="img-responsive" width="140" height="140">
     </div>
+    <div class="col-sm-9">
+      <%= link_to(comment.user.name, user_path(comment.user_id)) %>
+      <p><%= comment.content %>
+      <% if comment_user?(comment: comment) %>
+        <%= link_to("編集", edit_comment_path(comment.id)) %>
+        <%= link_to("削除", comment_path(comment.id), method: :delete, data:
+        { confirm: "本当に#{comment.content}を削除してよろしいですか？"}) %>
+      <% end %>
+      </p>
+      <%= comment.created_at %><hr>
+    </div>
+  </div>
+  <% end %>
+  <div class="form_group">
+  <%= form_with(model: @comment, url: comments_path, local: true) do |form| %>
+    <% @comment.errors.full_messages.each do |message| %>
+    <div class="form-error">
+      <%= message %>
+    </div>
+  <% end %>
+    <%= form.hidden_field :topic_id, value: @topic_user.id %>
+    <%= form.text_area :content, class: "form-control", rows: "3"%>
+    <%= form.submit "投稿"%>
+    <% end %>
   </div>
 </div>
