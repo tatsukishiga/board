@@ -1,7 +1,7 @@
 <div class="container">
   <%= form_with(url: topics_search_result_path, local: true, method: :get) do |form| %>
-    <%= form.text_field :title %>
-    <%= form.submit "検索" %>
+    <%= form.text_field :title, class: "form-control mr-sm-2", placeholder: "全トピックから検索" %>
+    <%= form.submit "検索", class: "btn btn-outline-success my-2 my-sm-0" %>
   <% end %>
   <%= page_entries_info @topics %>
   <div class="row">
