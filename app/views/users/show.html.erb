@@ -1,32 +1,36 @@
-<header>
-  <ul>
-    <% if @current_user.admin?  %>
-      <li>
-        <%= link_to("管理者ページ", admin_path) %>
-      </li>
-    <% end %>
-  </ul>
-</header>
-<div class="main user-show">
-  <div class="container">
-    <div class="user">
-      <img src="<%= "/profile_images/#{@user.profile_image}" %>">
-      <h2><%= @user.name %></h2>
-      <div class="profile"><%= @user.profile %></div>
+<div class="container">
+  <h1>マイページ</h1>
+  <div class="card">
+    <img src="<%= "/profile_images/#{@user.profile_image}" %>" class="bd-placeholder-img card-img-top" width="100%" height="300">
+    <div class="card-body">
+      <h2 class="card-title"><%= @user.name %></h2>
+      <h5 class="card-title">プロフィール</h5>
+      <p class="card-text"><%= @user.profile %></p>
       <% if u_ensure_correct_user %>
-        <%= link_to("プロフィール編集", edit_user_path ) %>
+        <%= link_to("プロフィール編集", edit_user_path, class: "btn btn-primary") %>
       <% end %>
     </div>
-    <% @user.comments.each do |comment| %>
-      <div class="user-comments">
-        <div class="user-comments-title">
-          <%= link_to(comment.topic.title, topic_path(comment.topic_id)) %>
-        </div>
-        <p><%= comment.content %></p>
-        <div class="comment-time">
-          <%= comment.created_at %>
+  </div>
+  <h2>投稿一覧</h2>
+  <% @user.comments.each do |comment| %>
+  <div class="card mx-auto my-1">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= link_to(comment.topic.title, topic_path(comment.topic_id)) %>
+          </h5>
+          <p class="card-text"><%= comment.content %>
+            <% if comment_user?(comment: comment) %>
+            <%= link_to("編集", edit_comment_path(comment.id)) %>
+            <%= link_to("削除", comment_path(comment.id), method: :delete, data:
+            { confirm: "本当に#{comment.content}を削除してよろしいですか？"}) %>
+            <% end %>
+          </p>
+          <p class="card-text"><small class="text-muted"><%= simple_time(comment.created_at) %></small></p>
         </div>
       </div>
-    <% end %>
+    </div>
   </div>
+  <% end %>
 </div>
