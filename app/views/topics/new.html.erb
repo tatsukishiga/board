@@ -3,15 +3,15 @@
   <%= form_with(model: @topic, local: true) do |form| %>
     <form>
       <% @topic.errors.full_messages.each do |message| %>
-        <div class="form-error">
+        <div class="alert alert-danger" role="alert">
           <%= message %>
         </div>
       <% end %>
-      <p><%= form.label :title, "タイトル" %></p>
-        <%= form.text_field :title, class: "form-control" %>
-      <p><%= form.label :content, "内容" %></p>
+      <h5><%= form.label :title, "タイトル", class: "m-0" %></h5>
+        <%= form.text_field :title, class: "form-control mb-3" %>
+      <h5><%= form.label :content, "内容", class: "m-0" %></h5>
         <%= form.text_field :content, class: "form-control" %>
-        <%= form.submit "トピック作成", class: "btn btn-primary" %>
+        <%= form.submit "トピック作成", class: "btn btn-primary my-2" %>
     </form>
   <% end %>
 </div>

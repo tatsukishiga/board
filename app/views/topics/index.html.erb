@@ -1,26 +1,28 @@
 <div class="container">
   <%= form_with(url: topics_search_result_path, local: true, method: :get) do |form| %>
-    <%= form.text_field :title, class: "form-control mr-sm-2", placeholder: "全トピックから検索" %>
+    <%= form.text_field :title, class: "form-control my-2", placeholder: "全トピックから検索" %>
     <%= form.submit "検索", class: "btn btn-outline-success my-2 my-sm-0" %>
   <% end %>
   <%= page_entries_info @topics %>
-  <div class="row">
+
+
+
+
   <% @topics.each do |topic| %>
-      <div class="col-md-6">
-        <div class="card-group">
-          <div class="card">
+
+    <div class="card mx-auto my-1">
+      <div class="row">
+      <div class="col-md-12">
             <div class="card-body">
-              <%= link_to(topic.title, topic_path(topic.id), {class: "card-title"}) %>
+              <h5><%= link_to(topic.title, topic_path(topic.id), {class: "card-title"}) %></h5>
               <p class="card-text"><%= topic.content %></p>
-              <%= link_to("作成者#{topic.user.name}", user_path(topic.user.id)) %>
-            </div>
-            <div class="card-footer text-muted">
-              トピック作成日<%= topic.created_at %>
+              作成者<%= link_to(topic.user.name, user_path(topic.user.id)) %>
+              <p class="card-text"><small class="text-muted">トピック作成日<%= simple_time(topic.created_at) %></small></p>
             </div>
           </div>
         </div>
       </div>
   <% end %>
-  </div>
   <%= paginate @topics %>
+
 </div>
