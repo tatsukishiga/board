@@ -1,35 +1,49 @@
 <h1>管理者ページ</h1>
-<div class="main topics-index">
-  <div class="container">
-    <%= page_entries_info @topics %>
+<h2>トピック一覧</h2>
+<div class="container">
+<%= page_entries_info @topics %>
+  <div class="row">
     <% @topics.each do |topic| %>
-      <div class="topics-index-item">
-        <div class="topic-left">
-          <%= link_to(topic.title, topic_path(topic.id)) %>
-          <%= link_to("トピック削除", topic_path(topic.id), method: :delete, data:
-          { confirm: "本当にこのトピックを削除してよろしいですか？"}) %>
-        </div>
-        <div class="topic-right">
-          <div class="topic-user-name">
-            <%= link_to(topic.user.name, user_path(topic.user.id)) %>
+      <div class="col-sm-4">
+        <div class="card-group">
+          <div class="card">
+            <div class="card-body">
+              <%= link_to(topic.title, topic_path(topic.id), {class: "card-title"}) %>
+              <p class="card-text"><%= topic.content %></p>
+              作成者<%= link_to(topic.user.name, user_path(topic.user.id)) %>
+            </div>
+            <div class="card-footer text-muted">
+              トピック作成日<%= simple_time(topic.created_at) %><br>
+              <%= link_to("トピック削除", topic_path(topic.id), method: :delete, data:
+              { confirm: "本当にこのトピックを削除してよろしいですか？"}) %>
+            </div>
           </div>
         </div>
       </div>
-    <% end %>
-    <%= paginate @topics %>
+      <% end %>
+    </div>
+  <%= paginate @topics %>
   </div>
-</div>
-<div class="main users-index">
-  <div class="container">
-    <%= page_entries_info @users %>
-    <% @users.each do |user| %>
-      <div class="users-index-item">
-        <%= link_to(user.name, user_path(user.id)) %>
-        <%= user.created_at %>
-        <%= link_to("アカウント削除", user_path(user.id), method: :delete, data:
-        { confirm: "本当にこのアカウントを削除してよろしいですか？"}) %>
+<h2>ユーザー一覧</h2>
+<div class="container">
+<%= page_entries_info @users %>
+  <div class="row">
+  <% @users.each do |user| %>
+    <div class="col-sm-4">
+      <div class="card-group">
+        <div class="card">
+          <div class="card-body">
+            <%= link_to(user.name, user_path(user.id)) %>
+            <%= simple_time(user.created_at) %>
+          </div>
+          <div class="card-footer text-muted">
+            <%= link_to("アカウント削除", user_path(user.id), method: :delete, data:
+            { confirm: "本当にこのアカウントを削除してよろしいですか？"}) %>
+          </div>
+        </div>
       </div>
-    <% end %>
-    <%= paginate @users %>
+    </div>
+  <% end %>
   </div>
+<%= paginate @users %>
 </div>

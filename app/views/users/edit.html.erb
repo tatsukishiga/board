@@ -1,26 +1,23 @@
-<div class="main users-edit">
-  <div class="container">
-    <div class="form-heading">アカウント編集</div>
-    <div class="form users-form">
-      <div class="form-body">
-        <% @user.errors.full_messages.each do |message| %>
-          <div class="form-error">
-            <%= message %>
-          </div>
-        <% end %>
-        <%= form_with(model: @user, local: true) do |form| %>
-          <p><%= form.label :name, "ユーザー名" %></p>
-            <%= form.text_field :name %>
-          <p><%= form.label :image, "画像" %></p>
-            <%= form.file_field :image %>
-          <p><%= form.label :email, "メールアドレス" %></p>
-            <%= form.text_field :email %>
-          <p><%= form.label :profile, "プロフィール" %></p>
-            <%= form.text_field :profile %>
-            <%= form.submit "更新"%>
-        <% end %>
-        <%= link_to("アカウント削除", user_path(@user.id), :method => :delete) %>
-      </div>
+<div class="container">
+  <h1 class="form-heading">アカウント編集</h1>
+  <%= form_with(model: @user, local: true) do |form| %>
+  <form>
+  <div class="form-group">
+    <% @user.errors.full_messages.each do |message| %>
+    <div class="alert alert-danger" role="alert">
+      <%= message %>
     </div>
+    <% end %>
+    <h5><%= form.label :name, "ユーザー名", class: "m-0" %></h5>
+    <%= form.text_field :name, class: "form-control mb-3" %>
+    <h5><%= form.label :image, "画像" %></h5>
+    <%= form.file_field :image, class: "mb-3" %>
+    <h5><%= form.label :email, "メールアドレス", class: "m-0" %></h5>
+    <%= form.text_field :email, class: "form-control mb-3" %>
+    <h5><%= form.label :profile, "プロフィール", class: "m-0" %></h5>
+    <%= form.text_area :profile, class: "form-control mb-3", rows: "3" %>
+    <%= form.submit "更新", class: "btn btn-primary my-2" %>
   </div>
+  </form>
+  <% end %>
 </div>

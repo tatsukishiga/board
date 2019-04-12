@@ -1,29 +1,39 @@
-<%= form_with(model: @topic, url: topics_search_result_path, local: true, method: :get) do |form| %>
-  <%= form.text_field :title %>
-  <%= form.submit "検索" %>
-<% end %>
-<%= "#{params[:title]}を検索しました。" %>
-<% if @topics.count == 0 %>
-  <h3>懸命に探してみましたが、見つかりませんでした。</h3>
-  <p>検索のヒント</p>
-  <ul>
-    <li>キーワードを短くしてみたり、数を減らしてみてください。</li>
-    <li>キーワードの誤字、脱字がないか確認してください。</li>
-    <li>別のキーワードを試してみてください。</li>
-    <li>もっと一般的なキーワードに変えてみてください。</li>
-  </ul>
-<% else %>
-  <h1>検索結果</h1>
+<div class="container">
+  <%= form_with(url: topics_search_result_path, local: true, method: :get) do |form| %>
+    <%= form.text_field :title, class: "form-control my-2", placeholder: "全トピックから検索" %>
+    <%= form.submit "検索", class: "btn btn-outline-success my-2 my-sm-0" %>
+  <% end %>
   <% @topics.each do |topic| %>
-    <div class="topics-index-item">
-      <div class="topic-left">
-        <%= link_to(topic.title, topic_path(topic.id)) %>
-      </div>
-      <div class="topic-right">
-        <div class="topic-user-name">
-          <%= link_to(topic.user.name, user_path(topic.user.id)) %>
+    <%= "#{topic.title}を検索しました。" %>
+  <% end %>
+  <% if @topics.count == 0 %>
+    <h3>懸命に探してみましたが、見つかりませんでした。</h3>
+    <p>検索のヒント</p>
+    <ul>
+      <li>キーワードを短くしてみたり、数を減らしてみてください。</li>
+      <li>キーワードの誤字、脱字がないか確認してください。</li>
+      <li>別のキーワードを試してみてください。</li>
+      <li>もっと一般的なキーワードに変えてみてください。</li>
+    </ul>
+  <% else %>
+  <h1>検索結果</h1>
+    <% @topics.each do |topic| %>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card-group">
+          <div class="card">
+            <div class="card-body">
+              <%= link_to(topic.title, topic_path(topic.id), {class: "card-title"}) %>
+              <p class="card-text"><%= topic.content %></p>
+              <%= link_to("作成者#{topic.user.name}", user_path(topic.user.id)) %>
+            </div>
+            <div class="card-footer text-muted">
+              トピック作成日<%= simple_time(topic.created_at) %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>
