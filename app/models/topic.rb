@@ -6,4 +6,8 @@ class Topic < ApplicationRecord
 
   belongs_to :user
   has_many :comments
+
+  def self.search(title)
+    where('title LIKE ?', "%#{title}%")
+  end
 end

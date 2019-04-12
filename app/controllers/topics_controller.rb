@@ -54,6 +54,6 @@ class TopicsController < ApplicationController
   end
 
   def search_result
-    @topics = Topic.where(title: params[:title])
+    @topics = Topic.search(params[:title])
   end
 end
