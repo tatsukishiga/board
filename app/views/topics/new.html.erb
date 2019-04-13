@@ -10,7 +10,7 @@
       <h5><%= form.label :title, "タイトル", class: "m-0" %></h5>
         <%= form.text_field :title, class: "form-control mb-3" %>
       <h5><%= form.label :content, "内容", class: "m-0" %></h5>
-        <%= form.text_field :content, class: "form-control" %>
+        <%= form.text_area :content, class: "form-control" %>
         <%= form.submit "トピック作成", class: "btn btn-primary my-2" %>
     </form>
   <% end %>
