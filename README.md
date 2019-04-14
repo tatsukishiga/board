@@ -1,24 +1,17 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## アプリケーション概要
+- 自由に今の気持ちをつぶやける掲示板アプリケーションです。
+## アプリケーション機能一覧
+- 新規登録、ログイン・ログアウト機能
+- 管理者機能
+- 記事検索機能
+- 記事投稿機能
+- 記事にコメントを付ける機能
+- 各種編集機能
+- ページネーション機能
+- 認証機能
+## アプリケーション内で使用している技術一覧
+- フレームワーク：Ruby on Rails
+- データベース：MySQL
+- ソースコード管理：GitHub
+- コミュニケーションツール：Slack
+- セッション管理：CookieStore
