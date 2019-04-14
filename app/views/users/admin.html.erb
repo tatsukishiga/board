@@ -2,48 +2,44 @@
 <h2>トピック一覧</h2>
 <div class="container">
 <%= page_entries_info @topics %>
-  <div class="row">
-    <% @topics.each do |topic| %>
-      <div class="col-sm-4">
-        <div class="card-group">
-          <div class="card">
-            <div class="card-body">
-              <%= link_to(topic.title, topic_path(topic.id), {class: "card-title"}) %>
-              <p class="card-text"><%= topic.content %></p>
-              作成者<%= link_to(topic.user.name, user_path(topic.user.id)) %>
-            </div>
-            <div class="card-footer text-muted">
-              トピック作成日<%= simple_time(topic.created_at) %><br>
-              <%= link_to("トピック削除", topic_path(topic.id), method: :delete, data:
-              { confirm: "本当にこのトピックを削除してよろしいですか？"}) %>
-            </div>
-          </div>
+  <% @topics.each do |topic| %>
+    <div class="row">
+      <div class="media">
+        <img src="<%= "/profile_images/#{topic.user.profile_image}" %>" class="bd-placeholder-img" width="64" height="64">
+        <div class="media-body">
+          <h5 class="mt-0"><%= link_to(topic.title, topic_path(topic.id)) %></h5>
+          <%= topic.content %>
+          作成者<%= link_to(topic.user.name, user_path(topic.user.id)) %>
+          <p class="card-text"><small class="text-muted">
+            トピック作成日<%= simple_time(topic.created_at) %><br>
+            <%= link_to("トピック削除", topic_path(topic.id), method: :delete, data:
+            { confirm: "本当にこのトピックを削除してよろしいですか？"}) %>
+          </small></p>
         </div>
       </div>
-      <% end %>
     </div>
-  <%= paginate @topics %>
-  </div>
+    <hr>
+  <% end %>
+<%= paginate @topics %>
+</div>
 <h2>ユーザー一覧</h2>
 <div class="container">
 <%= page_entries_info @users %>
-  <div class="row">
   <% @users.each do |user| %>
-    <div class="col-sm-4">
-      <div class="card-group">
-        <div class="card">
-          <div class="card-body">
-            <%= link_to(user.name, user_path(user.id)) %>
-            <%= simple_time(user.created_at) %>
-          </div>
-          <div class="card-footer text-muted">
-            <%= link_to("アカウント削除", user_path(user.id), method: :delete, data:
-            { confirm: "本当にこのアカウントを削除してよろしいですか？"}) %>
-          </div>
-        </div>
+  <div class="row">
+    <div class="media">
+      <img src="<%= "/profile_images/#{user.profile_image}" %>" class="bd-placeholder-img" width="64" height="64">
+      <div class="media-body">
+        <h5 class="mt-0"><%= link_to(user.name, user_path(user.id)) %></h5>
+        <p class="card-text"><small class="text-muted">
+          ユーザー登録日<%= simple_time(user.created_at) %><br>
+          <%= link_to("アカウント削除", user_path(user.id), method: :delete, data:
+          { confirm: "本当にこのアカウントを削除してよろしいですか？"}) %>
+        </small></p>
       </div>
     </div>
-  <% end %>
   </div>
+  <hr>
+  <% end %>
 <%= paginate @users %>
 </div>
