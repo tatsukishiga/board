@@ -5,7 +5,9 @@
       <h2 class="card-title"><%= @topic_user.title %></h2>
       <p class="card-text"><%= @topic_user.content %></p>
       <% if t_ensure_correct_user %>
-        <%= link_to("トピック編集", edit_topic_path(@topic_user.id)) %>
+        <%= link_to("編集", edit_topic_path(@topic_user.id)) %>
+        <%= link_to("削除", topic_path(@topic_user.id), method: :delete, data:
+        { confirm: "本当に#{@topic_user.title}を削除してよろしいですか？"}) %>
       <% end %>
     </div>
   </div>
