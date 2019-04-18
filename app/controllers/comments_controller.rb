@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
       flash[:notice] = "コメントを投稿しました"
       redirect_back(fallback_location: topics_path)
     else
-      @topic_user = Topic.find_by(id: params[:topic_id])
+      @topic_user = Topic.find_by(id: params[:comment][:topic_id])
       render("topics/show")
     end
   end

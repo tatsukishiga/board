@@ -3,7 +3,7 @@ class TopicsController < ApplicationController
   before_action :ensure_correct_user, {only: [:edit, :update]}
 
   def index
-    @topics = Topic.page(params[:page])
+    @topics = Topic.page(params[:page]).order(created_at: "desc")
   end
 
   def new
