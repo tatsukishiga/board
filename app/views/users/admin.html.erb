@@ -9,7 +9,7 @@
         <div class="media-body">
           <h5 class="mt-0"><%= link_to(topic.title, topic_path(topic.id)) %></h5>
           <%= topic.content %>
-          作成者<%= link_to(topic.user.name, user_path(topic.user.id)) %>
+          作成者<%= link_to(topic.user.name, user_path(topic.user_id)) %>
           <p class="card-text"><small class="text-muted">
             トピック作成日<%= simple_time(topic.created_at) %><br>
             <%= link_to("トピック削除", topic_path(topic.id), method: :delete, data:
