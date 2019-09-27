@@ -27,10 +27,6 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-gem 'kaminari'
-
-gem 'paperclip'
-
 group :development, :test do
   gem 'pry-rails'  # rails console(もしくは、rails c)でirbの代わりにpryを使われる
   gem 'pry-doc'    # methodを表示
@@ -67,3 +63,6 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "nokogiri", ">= 1.10.4"
+gem 'kaminari'
+gem 'paperclip'
+gem 'kaminari-bootstrap', '~> 3.0.1'
