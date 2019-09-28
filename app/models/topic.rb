@@ -1,4 +1,6 @@
 class Topic < ApplicationRecord
+  is_impressionable :counter_cache => true
+
   paginates_per 5
 
   validates :title, {presence: true, length: {maximum: 40}}

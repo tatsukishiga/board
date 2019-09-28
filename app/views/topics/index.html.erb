@@ -13,6 +13,7 @@
               <p class="card-text"><%= topic.content %></p>
               作成者<%= link_to(topic.user.name, user_path(topic.user.id)) %>
               <p class="card-text"><small class="text-muted">トピック作成日<%= simple_time(topic.created_at) %></small></p>
+              <small class="text-muted"><%= "#{topic.impressionist_count}view" %></small>
             </div>
           </div>
         </div>
