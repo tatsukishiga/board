@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # comments
   resources :comments
   # topics
+  get 'topics/most_view' => 'topics#most_view'
   get 'topics/search_result' => 'topics#search_result'
   resources :topics
   # users
