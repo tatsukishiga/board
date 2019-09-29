@@ -7,6 +7,10 @@ class TopicsController < ApplicationController
     @topics = Topic.all.order(created_at: "desc").page(params[:page]).per(5)
   end
 
+  def most_view
+    @most_viewed_topics = Topic.order('impressions_count DESC').take(3)
+  end
+
   def new
     @topic = Topic.new
   end
