@@ -1,9 +1,10 @@
 class TopicsController < ApplicationController
   before_action :authenticate_user
   before_action :ensure_correct_user, {only: [:edit, :update]}
+  impressionist :actions => [:show, :index]
 
   def index
-    @topics = Topic.all.order(created_at: "desc").page(params[:page]).per(3)
+    @topics = Topic.all.order(created_at: "desc").page(params[:page]).per(5)
   end
 
   def new
@@ -27,6 +28,7 @@ class TopicsController < ApplicationController
   def show
     @topic_user = Topic.find_by(id: params[:id])
     @comment = Comment.new
+    impressionist(@topic_user, nil, unique: [:session_hash])
   end
 
   def edit
