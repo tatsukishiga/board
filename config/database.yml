@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: board3_production
-  username: board3
-  password: <%= ENV['BOARD3_DATABASE_PASSWORD'] %>
+  username: root
+  password:
