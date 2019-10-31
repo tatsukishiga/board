@@ -14,8 +14,9 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password: ENV['DB_PASSWORD']
+  password:
   socket: /tmp/mysql.sock
+  host: mumu-mysql.clexlm7oqdrl.ap-northeast-1.rds.amazonaws.com
 
 development:
   <<: *default
@@ -51,4 +52,4 @@ production:
   <<: *default
   database: board_production
   username: root
-  password: ENV['DB_PASSWORD']
+  password:
